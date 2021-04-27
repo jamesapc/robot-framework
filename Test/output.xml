@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0.1 (Python 3.8.2 on darwin)" generated="20210427 14:44:48.023" rpa="false" schemaversion="2">
+<suite id="s1" name="testAPI" source="/Users/apichaipinyorattanayotee/Desktop/TestRobot/Test/testAPI.robot">
+<test id="s1-t1" name="Test Get User Correct API">
+<kw name="Get User Correct API">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>GetUserAPI</arg>
+<arg>${url_get}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210427 14:44:48.297" level="INFO">Creating Session using : alias=GetUserAPI, url=https://reqres.in/api/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210427 14:44:48.297" endtime="20210427 14:44:48.297"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${res}</var>
+<arg>GetUserAPI</arg>
+<arg>users/12</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20210427 14:44:48.521" level="INFO">GET Request : url=https://reqres.in/api/users/12 
+ path_url=/api/users/12 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20210427 14:44:48.522" level="INFO">GET Response : url=https://reqres.in/api/users/12 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 27 Apr 2021 07:44:48 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Set-Cookie': '__cfduid=daa8ce0e5a34c98e197c5eea3250382da1619509488; expires=Thu, 27-May-21 07:44:48 GMT; path=/; domain=.reqres.in; HttpOnly; SameSite=Lax; Secure', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"11c-Y8Nrcu5DO2DrJvfp3zc2PKGiar4"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'HIT', 'Age': '3167', 'cf-request-id': '09b3e2c3de00004b5336a6b000000001', 'Expect-CT': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report?s=OM0MJr9iqanbQ8eSeqTHLekYiAOYmr6qnnjjfCip8wdPN%2FRU4gjUCtZ2Mx9GvfhhGCo5t4IwLAq56UhaJ6j3%2BvSmr0aAovwBGLFFtKBZo8VetTyvI7g%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '64666d7fc97a4b53-BKK', 'Content-Encoding': 'gzip', 'alt-svc': 'h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400'} 
+ body={"data":{"id":12,"email":"rachel.howell@reqres.in","first_name":"Rachel","last_name":"Howell","avatar":"https://reqres.in/img/faces/12-image.jpg"},"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}} 
+ </msg>
+<msg timestamp="20210427 14:44:48.522" level="INFO">/Users/apichaipinyorattanayotee/Library/Python/3.8/lib/python/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20210427 14:44:48.522" level="INFO">${res} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210427 14:44:48.297" endtime="20210427 14:44:48.522"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<arg>${res}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20210427 14:44:48.522" endtime="20210427 14:44:48.523"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${res.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20210427 14:44:48.524" level="INFO">{'data': {'id': 12, 'email': 'rachel.howell@reqres.in', 'first_name': 'Rachel', 'last_name': 'Howell', 'avatar': 'https://reqres.in/img/faces/12-image.jpg'}, 'support': {'url': 'https://reqres.in/#support-heading', 'text': 'To keep ReqRes free, contributions towards server costs are appreciated!'}}</msg>
+<status status="PASS" starttime="20210427 14:44:48.523" endtime="20210427 14:44:48.524"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${res.json()}[data][id]</arg>
+<arg>12</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20210427 14:44:48.526" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210427 14:44:48.525" endtime="20210427 14:44:48.526"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${res.json()}[data][email]</arg>
+<arg>rachel.howell@reqres.in</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20210427 14:44:48.527" endtime="20210427 14:44:48.528"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${res.json()}[data][first_name]</arg>
+<arg>Rachel</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20210427 14:44:48.528" endtime="20210427 14:44:48.529"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${res.json()}[data][last_name]</arg>
+<arg>Howell</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20210427 14:44:48.529" endtime="20210427 14:44:48.531"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${res.json()}[data][avatar]</arg>
+<arg>https://reqres.in/img/faces/12-image.jpg</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20210427 14:44:48.531" endtime="20210427 14:44:48.533"/>
+</kw>
+<status status="PASS" starttime="20210427 14:44:48.296" endtime="20210427 14:44:48.533"/>
+</kw>
+<status status="PASS" starttime="20210427 14:44:48.295" endtime="20210427 14:44:48.533"/>
+</test>
+<test id="s1-t2" name="Test Get User Incorrect API">
+<kw name="Get User Incorrect API">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>GetUserAPI</arg>
+<arg>${url_get}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210427 14:44:48.536" level="INFO">Creating Session using : alias=GetUserAPI, url=https://reqres.in/api/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210427 14:44:48.535" endtime="20210427 14:44:48.536"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${res}</var>
+<arg>GetUserAPI</arg>
+<arg>user/1234</arg>
+<arg>expected_status=404</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20210427 14:44:48.603" level="INFO">GET Request : url=https://reqres.in/api/user/1234 
+ path_url=/api/user/1234 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20210427 14:44:48.604" level="INFO">GET Response : url=https://reqres.in/api/user/1234 
+ status=404, reason=Not Found 
+ headers={'Date': 'Tue, 27 Apr 2021 07:44:48 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '2', 'Connection': 'keep-alive', 'Set-Cookie': '__cfduid=d9e9de6223c9418ae6cea245bace8719f1619509488; expires=Thu, 27-May-21 07:44:48 GMT; path=/; domain=.reqres.in; HttpOnly; SameSite=Lax; Secure', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'HIT', 'Age': '156', 'cf-request-id': '09b3e2c42b000010f8dd3bf000000001', 'Expect-CT': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"', 'Report-To': '{"max_age":604800,"group":"cf-nel","endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report?s=kPP%2FbYDb1zMJCbdI1jOJs%2BBQmvqZcbGfoxnZH0IphvcfKKW3eQZEscXQQuupJNKkzUXEfklyqvIeHGPbh0EhJy6ZxvAEdqfmUxBpkyrc31VPVDU8ss0%3D"}]}', 'NEL': '{"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '64666d804bc010f8-BKK', 'alt-svc': 'h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400'} 
+ body={} 
+ </msg>
+<msg timestamp="20210427 14:44:48.604" level="INFO">/Users/apichaipinyorattanayotee/Library/Python/3.8/lib/python/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20210427 14:44:48.604" level="INFO">${res} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20210427 14:44:48.536" endtime="20210427 14:44:48.604"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>404</arg>
+<arg>${res}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20210427 14:44:48.604" endtime="20210427 14:44:48.605"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${res.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20210427 14:44:48.605" level="INFO">{}</msg>
+<status status="PASS" starttime="20210427 14:44:48.605" endtime="20210427 14:44:48.606"/>
+</kw>
+<kw name="Should Be Empty" library="BuiltIn">
+<arg>${res.json()}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<msg timestamp="20210427 14:44:48.607" level="INFO">Length is 0</msg>
+<status status="PASS" starttime="20210427 14:44:48.606" endtime="20210427 14:44:48.607"/>
+</kw>
+<status status="PASS" starttime="20210427 14:44:48.534" endtime="20210427 14:44:48.607"/>
+</kw>
+<status status="PASS" starttime="20210427 14:44:48.534" endtime="20210427 14:44:48.607"/>
+</test>
+<status status="PASS" starttime="20210427 14:44:48.024" endtime="20210427 14:44:48.608"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="0" skip="0" id="s1" name="testAPI">testAPI</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
